@@ -1,0 +1,33 @@
+label {
+    display: inline-block;
+    width: 10vw;
+}
+a{
+    text-decoration: none;
+    color: green;
+}
+a:hover{
+    color: red;
+    font-size: 1.1em;
+   
+}
+table{
+    width: 80vw;
+    
+}
+tr{
+    height: 30px
+}
+td{
+    text-align: center;
+}
+th{
+    background-color: darkgreen;
+}
+table,tr,td,th{
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
+
+

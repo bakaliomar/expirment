@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <hread>
+        <title>persone</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link type="text/css" href="css/style.css" rel="stylesheet">
+    </hread>
+    <body>
+        <h1>people management</h1>
+        <div id="input">
+            <form name="info_form">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" placeholder="First Name"><br><br>
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" placeholder="Last Name"><br><br>
+                <label for="age">Age:</label>
+                <input type="text" id="age" placeholder="Age"><br><br>
+                <input type="button" id="addNew" value="Add Person">
+            </form>
+        </div>
+        <div class="output"></div>
+        <script>
+            let PerArray=[{firstName : "mohamed",lastName:"harak",age:15},{firstName : "mohamed",lastName:"samir",age:13}];
+            window.onload=build;
+            document.getElementById('addNew').addEventListener('click',addPerson,false);
+            function addPerson(){
+                var fn=document.getElementById('first_name');
+                var ln=document.getElementById('last_name');
+                var age=document.getElementById('age');
+                
+                PerArray.push(createPer(fn.value,ln.value,age.value));
+                fn.value='';
+                ln.value='';
+                age.value='';
+                build();
+            }
+            function createPer(fn,ln,age){
+                var per={firstName:fn,lastName:ln,age:Number(age)};
+                return per;
+            }
+            function build(){
+                let html='<h2>Person Table</h2><table><tr><th>First Name</th><th>Last Name</th><th>Age</th><th colspan="2">Configurations</th></tr>';
+                for(let i=0;i<PerArray.length;i++){
+                    html+='<tr id="id'+i+'" data-row="'+i+'"><td>'+PerArray[i].firstName+'</td><td>'+PerArray[i].lastName+'</td><td>'+PerArray[i].age+'</td><td><a href="#" data-action="delete">Del</a></td><td><a href="#" data-action="edit">Edit</a></td></tr>';
+                }
+                html+='</table>';
+                document.querySelector('.output').innerHTML=html;
+                let data_del=document.querySelectorAll('[data-action="delete"]');
+                for(let i=0;i<data_del.length;i++){
+                    data_del[i].addEventListener('click',function(){
+                        event.preventDefault();
+                        let iValue=this.closest('[data-row]').getAttribute('data-row');
+                        let rm=PerArray.splice(iValue,1);
+                        build();
+                        
+                    });
+                }
+                
+                
+                let data_edit=document.querySelectorAll('[data-action="edit"]');
+                for(let i=0;i<data_edit.length;i++){
+                    data_edit[i].addEventListener('click',function(){
+                        event.preventDefault();
+                        let row=this.closest('[data-row]');
+                       // let rid=row.getAttribute('data-row');
+                       
+                        row.style.backgroundColor="Yellow";
+                        for(let i=0;i<3;i++){
+                        let td=row.children[i];
+                        let input=document.createElement('input');
+                        input.type="text";
+                        input.value=td.innerHTML;
+                            td.innerHTML='';
+                            td.appendChild(input);
+                        }
+      
+            });}
+      
+            }
+        
+            
+        </script>
+    </body>
+    
+    
+</html>
